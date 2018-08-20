@@ -3,10 +3,12 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <conio.h>
+#include <ctype.h>
+#include <time.h>
 
 int reg(int client_number);
 int login(int client_username, int client_password, int client_number, int client_verify);
-int personal_page(int client_number);
+int client_view(int client_number);
 
 
 
@@ -19,14 +21,16 @@ struct client
 	int  afm;
 	float  initial_deposit;
 	float  after_tax_deposit;
-	char datep[50];
+	char date[150];
 };
 
 struct  client client_array[5];
 
 int main() {
 
-	int i;
+
+
+	int i = 0;
 	int client_verify = 0 ;
 	int client_number = 0 ;
 	int quarter_align, third_align, center_align, len;
@@ -57,16 +61,23 @@ int main() {
 	admin_result = strcmp(sign_in_choice,"Admin");
 	client_result = strcmp(sign_in_choice,"Client");
 	char client_choice[10];
-	int client_username;
-	int client_password;
+	int client_username, client_password;
 	int temp;
+	char temp_check[20];
 	int client_choice_log_in, client_choice_register;
 while(x == 0)
 {
 		if(admin_result == 0 )
 		{
 		printf("Welcome to Admin Page\n");
-	
+		
+//		    time_t t = time(NULL);
+//		    struct tm *tm = localtime(&t);
+//		    strftime(client_array[i].date, sizeof(client_array[i].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);
+//		    printf("%s\n", client_array[i].date);
+		
+		
+		
 		}
 		else if(client_result == 0)
 		{	
@@ -103,19 +114,13 @@ while(x == 0)
 					}
 					else if(client_choice_log_in == 0)
 					{
-				//LOG IN
-			//		int test, testt, *p, array[10][10];
-			//		test = 1513123123;
-			//		testt = 200;
-			//		array[0][0] = test;
-			//		array[0][1] = testt;
-			//		printf("%d\n", array[0][1]);
-					printf("Please enter your credentials\n");
-					printf("Enter your afm:\n");
-					scanf("%d", &client_username);
-					printf("Enter your year of birth:\n");
-					scanf("%d", &client_password);
-					client_number = temp;
+					//LOG IN
+						printf("Please enter your credentials\n");
+						printf("Enter your afm:\n");
+						scanf("%d", &client_username);
+						printf("Enter your year of birth:\n");
+						scanf("%d", &client_password);
+						client_number = temp;
 							if(login(client_username, client_password, client_number, client_verify) == 1)
 							{
 					//END OF LOG IN
@@ -146,7 +151,7 @@ while(x == 0)
 						{
 					//LOG IN
 						printf("Please enter your credentials\n");
-						printf("Enter your afm:\n");
+						printf("Enter your afmm:\n");
 						scanf("%d", &client_username);
 						printf("Enter your year of birth:\n");
 						scanf("%d", &client_password);
@@ -157,6 +162,11 @@ while(x == 0)
 						// PERSONAL CLIENT PAGE
 							i = client_number;
 							printf("Welcome to your Personal Client Page: %s \n", client_array[i].client_name);
+							client_view(client_number);
+						
+						
+						
+						
 						// END OF PERSONAL CLIENT PAGE
 									c = 1;	
 								}
@@ -191,13 +201,18 @@ int reg(client_number)
     scanf("%s", client_array[i].client_name);
     printf("Enter your surname: \n");
     scanf("%s", client_array[i].client_surname);
-    printf("Enter your date of birth: \n");
+    printf("Enter your year of birth: \n");
     scanf("%d", &client_array[i].birth_year);
     printf("Enter your afm: \n");
     scanf("%d", &client_array[i].afm);
     printf("Initial Deposit: \n");
     scanf("%f", &client_array[i].initial_deposit);
     client_array[i].after_tax_deposit = client_array[i].initial_deposit - 0.05*client_array[i].initial_deposit;
+    time_t t = time(NULL);
+    struct tm *tm = localtime(&t);
+    strftime(client_array[i].date, sizeof(client_array[i].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);
+    printf("%s\n", client_array[i].date);
+   	printf("Current local time and date: %s", client_array[i].date);
 	}else{
 	printf("Maximum number of clients registered!");
 	}
@@ -245,4 +260,27 @@ int login(client_username, client_password, client_number, client_verify)
 //
 //
 return 0;
+}
+
+
+int client_view(int client_number)
+{
+	int	i = client_number;
+	printf("\nName:\t Surname:\t Afm:\t");
+	printf("\n%s \t %s \t %d", client_array[i].client_name,client_array[i].client_surname,client_array[i].afm);
+	printf("\nInitial Deposit: %0.1f",client_array[i].initial_deposit);
+	printf("\nAfter Tax Deposit: %0.1f",client_array[i].after_tax_deposit);
+	printf("\nDate of registration:");
+	printf("%s", client_array[i].date);
+	
+//		int  client_id;
+//	char client_name[50];
+//	char client_surname[50];
+//	int	 birth_year;
+//	int  afm;
+//	float  initial_deposit;
+//	float  after_tax_deposit;
+//	char datep[50];
+//	
+//	
 }
