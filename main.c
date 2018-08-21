@@ -122,7 +122,7 @@ while(x == 0)
 							// PERSONAL CLIENT PAGE
 							client_view(l);
 							// END OF PERSONAL CLIENT PAGE
-//								c = 1;	
+//								c++;
 							}
 							else
 							{
@@ -137,46 +137,10 @@ while(x == 0)
 					client_choice_log_in = strcmp(sign_in_choice,"Login");
 					client_choice_register = strcmp(sign_in_choice,"Register");
 					}
-//				}
-//				else
-//				{
-//				printf("Max Number of Clients\n");
-//				printf("Login or Exit\n");
-//				scanf("%s",client_choice);
-//				client_choice_log_in = strcmp(client_choice,"Login");
-//						if(client_choice_log_in == 0)
-//						{
-//					//LOG IN
-//						printf("Please enter your credentials\n");
-//						printf("Enter your afmm:\n");
-//						scanf("%d", &client_username);
-//						printf("Enter your year of birth:\n");
-//						scanf("%d", &client_password);
-//						client_number = temp;
-//								if(login(client_username, client_password, client_number, client_verify) == 1)
-//								{
-//						
-//						// PERSONAL CLIENT PAGE
-//							i = client_number;
-//							printf("\nWelcome to your Personal Client Page: %s \n", client_array[i].client_name);
-//							client_view(client_number);
-//						// END OF PERSONAL CLIENT PAGE
-//								}
-//							}//END OF LOG IN
-//
-//				}//END OF IF LOOP
 			}//END OF WHILE C LOOP
 			
 		}// END OF CLIENT PAGE
-//		else
-//		{
-//		printf("Invalid input.Please try againn.\n");
-//		printf("Admin Client\n");
-//		scanf("%s",sign_in_choice);
-//		admin_result = strcmp(sign_in_choice,"Admin");
-//		client_result = strcmp(sign_in_choice,"Client");
-//		}
-//		x = 1;
+//x++;
 }//END OF WHILE X LOOP
 
 getch();
@@ -234,25 +198,6 @@ int login(client_username, client_password, client_number, client_verify)
 			return x;
 	     }
 		}
-//    printf("Enter your username:\n");
-//    scanf("%s",&client_username);
-//
-//    printf("Enter your password:\n");
-//    scanf("%s",&client_password);
-//
-//    if(strcmp(client_username,"chaitu")==0){
-//        if(strcmp(client_password,"123")==0){
-//
-//        printf("\nWelcome.Login Success!");
-//
-//
-//        }else{
-//    printf("\nwrong password");
-//}
-//    }else{
-//    printf("\nUser doesn't exist");
-//
-//
 
 return 5;
 }
