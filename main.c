@@ -43,75 +43,71 @@ int main() {
 	len = strlen(start_screen_title);
 	quarter_align = ((len+cols)/4);
 	third_align = ((len+cols)/3);
-	center_align = ((len+cols)/2);
-	printf("%*s\n", center_align, "Start Screen");
-	char sign_in[] = "Log in as";
+	center_align = ((len+cols)/2);	
+	char sign_in[] = "Log In As";
 	len = strlen(sign_in);
-	center_align = ((len+cols)/2);
-	printf("%*s\n", center_align, "Log in as");
+	center_align = ((len+cols)/2);	
 	char choice[] = "Admin Client";
 	len = strlen(choice);
 	center_align = ((len+cols)/2);
-	printf("%*s\n", center_align, "Admin Client");
-	printf("\n");
-	scanf("%s",sign_in_choice);
 	int admin_result, client_result, number_of_clients;
 	int x = 0;
 	int c = 0; 
-	admin_result = strcmp(sign_in_choice,"Admin");
-	client_result = strcmp(sign_in_choice,"Client");
+	int a = 0;
+	int l = 0;
 	char client_choice[10];
 	int client_username, client_password;
 	int temp;
 	char temp_check[20];
 	int client_choice_log_in, client_choice_register;
 while(x == 0)
-{
-		if(admin_result == 0 )
+{	
+	printf("%*s\n", center_align, "Start Screen");
+	printf("%*s\n", center_align, "Log In As");
+	printf("%*s\n", center_align, "Admin Client");
+	printf("\n");	
+	scanf("%s",sign_in_choice);
+	admin_result = strcmp(sign_in_choice,"Admin");
+	client_result = strcmp(sign_in_choice,"Client");
+		while(admin_result == 0)
 		{
-		printf("Welcome to Admin Page\n");
-		
-//		    time_t t = time(NULL);
-//		    struct tm *tm = localtime(&t);
-//		    strftime(client_array[i].date, sizeof(client_array[i].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);
-//		    printf("%s\n", client_array[i].date);
-		
-		
-		
+			while(a == 0)
+			{
+				printf("Welcome to Admin Page\n");
+				printf("%d\n", admin_result);
+				a++;
+			}
+		admin_result++;
 		}
-		else if(client_result == 0)
+		if(client_result == 0)
 		{	
 			while(c == 0)
 			{
 			//START OF CLIENT PAGE
-				if(client_number <= 4)
-				{
+//				if(client_number <= 4)
+//				{
 					printf("Welcome to Client Page\n");
 					printf("Register or Log in?\n");
 					scanf("%s",client_choice);
 					client_choice_log_in = strcmp(client_choice,"Login");
-					client_choice_register = strcmp(client_choice,"Register");
-					
+					client_choice_register = strcmp(client_choice,"Register");					
 					if(client_choice_register == 0)
 					{
 					// REGISTER
-						for(client_number = 0; client_number < 5; client_number ++)
-						{
-						reg(client_number);
-						printf("Client number: %d", client_number);
-						printf("\nWelcome to Client Page\n");
-						printf("Register or Log in?\n");
-						scanf("%s",client_choice);
-						client_choice_log_in = strcmp(client_choice,"Login");
-						client_choice_register = strcmp(client_choice,"Register");
-						temp = client_number;
-						if(client_choice_log_in == 0)
-						{
-							client_number = 5;
-						}	
-					}
-				 	// END OF REGISTER
-					}
+						while(client_number < 2)
+						{								
+							reg(client_number);
+							printf("\nClient number: %d\n", client_number);
+							printf("Register or Log in?\n");
+							scanf("%s",client_choice);
+							client_choice_log_in = strcmp(client_choice,"Login");
+							client_choice_register = strcmp(client_choice,"Register");
+							temp = client_number;
+							client_number++;
+							printf("\nTemp is %d:", temp);
+							printf("\nClient_number is %d:", client_number);	
+						}
+					}// END OF REGISTER
 					else if(client_choice_log_in == 0)
 					{
 					//LOG IN
@@ -120,17 +116,15 @@ while(x == 0)
 						scanf("%d", &client_username);
 						printf("Enter your year of birth:\n");
 						scanf("%d", &client_password);
-						client_number = temp;
-							if(login(client_username, client_password, client_number, client_verify) == 1)
-							{
-					//END OF LOG IN
-					// PERSONAL CLIENT PAGE
-						i = client_number;
-						printf("Welcome to your Personal Client Page: %s \n", client_array[i].client_name);
-					// END OF PERSONAL CLIENT PAGE
-								c = 1;	
+						l = login(client_username, client_password, client_number, client_verify);
+							if(l >= 0)
+							{					
+							// PERSONAL CLIENT PAGE
+							client_view(l);
+							// END OF PERSONAL CLIENT PAGE
+//								c = 1;	
 							}
-					}
+					}//END OF LOG IN
 					
 					else
 					{
@@ -139,51 +133,46 @@ while(x == 0)
 					client_choice_log_in = strcmp(sign_in_choice,"Login");
 					client_choice_register = strcmp(sign_in_choice,"Register");
 					}
-				}
-				else
-				{
-				printf("Welcome to Client Page\n");
-				printf("Max Number of Clients\n");
-				printf("Login or Exit\n");
-				scanf("%s",client_choice);
-				client_choice_log_in = strcmp(client_choice,"Login");
-						if(client_choice_log_in == 0)
-						{
-					//LOG IN
-						printf("Please enter your credentials\n");
-						printf("Enter your afmm:\n");
-						scanf("%d", &client_username);
-						printf("Enter your year of birth:\n");
-						scanf("%d", &client_password);
-						client_number = temp;
-								if(login(client_username, client_password, client_number, client_verify) == 1)
-								{
-						//END OF LOG IN
-						// PERSONAL CLIENT PAGE
-							i = client_number;
-							printf("Welcome to your Personal Client Page: %s \n", client_array[i].client_name);
-							client_view(client_number);
-						
-						
-						
-						
-						// END OF PERSONAL CLIENT PAGE
-									c = 1;	
-								}
-							}
-
-				}//END OF IF LOOP
+//				}
+//				else
+//				{
+//				printf("Max Number of Clients\n");
+//				printf("Login or Exit\n");
+//				scanf("%s",client_choice);
+//				client_choice_log_in = strcmp(client_choice,"Login");
+//						if(client_choice_log_in == 0)
+//						{
+//					//LOG IN
+//						printf("Please enter your credentials\n");
+//						printf("Enter your afmm:\n");
+//						scanf("%d", &client_username);
+//						printf("Enter your year of birth:\n");
+//						scanf("%d", &client_password);
+//						client_number = temp;
+//								if(login(client_username, client_password, client_number, client_verify) == 1)
+//								{
+//						
+//						// PERSONAL CLIENT PAGE
+//							i = client_number;
+//							printf("\nWelcome to your Personal Client Page: %s \n", client_array[i].client_name);
+//							client_view(client_number);
+//						// END OF PERSONAL CLIENT PAGE
+//								}
+//							}//END OF LOG IN
+//
+//				}//END OF IF LOOP
 			}//END OF WHILE C LOOP
 			
 		}// END OF CLIENT PAGE
-		else
-		{
-		printf("Invalid input.Please try again.\n");
-		scanf("%s",sign_in_choice);
-		admin_result = strcmp(sign_in_choice,"Admin");
-		client_result = strcmp(sign_in_choice,"Client");
-		}
-		x = 1;
+//		else
+//		{
+//		printf("Invalid input.Please try againn.\n");
+//		printf("Admin Client\n");
+//		scanf("%s",sign_in_choice);
+//		admin_result = strcmp(sign_in_choice,"Admin");
+//		client_result = strcmp(sign_in_choice,"Client");
+//		}
+//		x = 1;
 }//END OF WHILE X LOOP
 
 getch();
@@ -216,7 +205,10 @@ int reg(client_number)
 	}else{
 	printf("Maximum number of clients registered!");
 	}
+printf("\n INSIDE REG");
 printf("\nClient id : %d", client_array[i].client_id);
+printf("\nClient id : %d", client_array[i].client_id);
+printf("\n END REG");
 
 return 0;
 }
@@ -235,8 +227,7 @@ int login(client_username, client_password, client_number, client_verify)
 	     if(client_array[x].afm ==  username && client_array[x].birth_year == password  )
 	     {
 			printf("Successful Login!\n");
-			y = y +1;
-			return y;
+			return x;
 	     }
 
 		}
