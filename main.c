@@ -116,19 +116,18 @@ while(x == 0)
 						scanf("%d", &client_username);
 						printf("Enter your year of birth:\n");
 						scanf("%d", &client_password);
-//						l = login(client_username, client_password, client_number, client_verify);
-						login(client_username, client_password, client_number, client_verify);
-//							if(l < 5)
-//							{					
-//							// PERSONAL CLIENT PAGE
-//							client_view(l);
-//							// END OF PERSONAL CLIENT PAGE
-////								c = 1;	
-//							}
-//							else
-//							{
-//							 printf("No record found\n");
-//							}
+						l = login(client_username, client_password, client_number, client_verify);
+							if(l < 5)
+							{					
+							// PERSONAL CLIENT PAGE
+							client_view(l);
+							// END OF PERSONAL CLIENT PAGE
+//								c = 1;	
+							}
+							else
+							{
+							 printf("No record found\n");
+							}
 					}//END OF LOG IN
 					
 					else
@@ -232,7 +231,7 @@ int login(client_username, client_password, client_number, client_verify)
 	     if(client_array[x].afm ==  username && client_array[x].birth_year == password  )
 	     {
 			printf("Successful Login!\n");
-			return client_view(x);
+			return x;
 	     }
 		}
 //    printf("Enter your username:\n");
