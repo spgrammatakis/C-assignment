@@ -117,12 +117,16 @@ while(x == 0)
 						printf("Enter your year of birth:\n");
 						scanf("%d", &client_password);
 						l = login(client_username, client_password, client_number, client_verify);
-							if(l >= 0)
+							if(l < 5)
 							{					
 							// PERSONAL CLIENT PAGE
 							client_view(l);
 							// END OF PERSONAL CLIENT PAGE
 //								c = 1;	
+							}
+							else
+							{
+							 printf("No record found\n");
 							}
 					}//END OF LOG IN
 					
@@ -216,7 +220,7 @@ return 0;
 int login(client_username, client_password, client_number, client_verify)
 {
 	int z = client_number;
-	int x = 0 ;
+	int x ;
 	int y = 0;
 	int username = client_username;
 	int password = client_password;
@@ -229,7 +233,6 @@ int login(client_username, client_password, client_number, client_verify)
 			printf("Successful Login!\n");
 			return x;
 	     }
-
 		}
 //    printf("Enter your username:\n");
 //    scanf("%s",&client_username);
@@ -250,7 +253,8 @@ int login(client_username, client_password, client_number, client_verify)
 //    printf("\nUser doesn't exist");
 //
 //
-return 0;
+
+return 5;
 }
 
 
@@ -263,15 +267,4 @@ int client_view(int client_number)
 	printf("\nAfter Tax Deposit: %0.1f",client_array[i].after_tax_deposit);
 	printf("\nDate of registration:");
 	printf("%s", client_array[i].date);
-	
-//		int  client_id;
-//	char client_name[50];
-//	char client_surname[50];
-//	int	 birth_year;
-//	int  afm;
-//	float  initial_deposit;
-//	float  after_tax_deposit;
-//	char datep[50];
-//	
-//	
 }
