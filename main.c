@@ -9,6 +9,11 @@
 int reg(int client_number);
 int login(int client_username, int client_password, int client_number, int client_verify);
 int client_view(int client_number);
+int client_notification(int client_number);
+int client_modify(int client_number);
+int client_notifications(int client_number);
+int client_modify(int client_number);
+//int check_isint(char input[], int client_number, int limit);
 
 
 
@@ -18,7 +23,7 @@ struct client
 	char client_name[50];
 	char client_surname[50];
 	int	 birth_year;
-	int  afm;
+	int afm;
 	float  initial_deposit;
 	float  after_tax_deposit;
 	char date[150];
@@ -58,8 +63,9 @@ int main() {
 	char client_choice[10];
 	int client_username, client_password;
 	int temp;
-	char temp_check[20];
-	int client_choice_log_in, client_choice_register;
+	int client_choice_log_in, client_choice_register; 
+	int client_choice_view, client_choice_notification ,client_choice_modify;
+
 while(x == 0)
 {	
 	printf("%*s\n", center_align, "Start Screen");
@@ -97,25 +103,25 @@ while(x == 0)
 						while(client_number < 5)
 						{							
 
-							printf("Register or Login?\n");
-							scanf("%s",client_choice);
-							client_choice_log_in = strcmp(client_choice,"Login");
-							client_choice_register = strcmp(client_choice,"Register");
-							temp = client_number;
+//							printf("Register or Login?\n");
+//							scanf("%s",client_choice);
+//							client_choice_log_in = strcmp(client_choice,"Login");
+//							client_choice_register = strcmp(client_choice,"Register");
 							if(client_choice_log_in == 0){
 								break;
 							}
 							if(client_choice_register == 0){
 								reg(client_number);	
-								client_number++;							
+								client_number++;
+								break;						
 							}
 							if(client_choice_log_in !=0 && client_choice_register != 0){
 								printf("Invalid Input.Try again.\n");
-							}
-								
+								break;
+							}						
 						}
 					}// END OF REGISTER
-					else if(client_choice_log_in == 0)
+					if(client_choice_log_in == 0)
 					{
 					//LOG IN
 						printf("Please enter your credentials\n");
@@ -124,10 +130,29 @@ while(x == 0)
 						printf("Enter your year of birth:\n");
 						scanf("%d", &client_password);
 						l = login(client_username, client_password, client_number, client_verify);
-							if(l < 5)
+							if(l != -1)
 							{					
 							// PERSONAL CLIENT PAGE
-							client_view(l);
+							printf("View Profile\t View Notifications\t");
+							printf("Modify Information\t Exit\n");
+							scanf("%s",client_choice);
+							client_choice_view = strcmp(client_choice,"View");
+							client_choice_notification = strcmp(client_choice,"Notifications");
+							client_choice_modify = strcmp(client_choice,"Modify");
+								if(client_choice_view == 0)
+								{
+									client_view(l);					
+								}
+								if(client_choice_notification == 0)
+								{
+									client_notifications(l);
+								}
+								if(client_choice_modify == 0)
+								{
+									client_modify(l);
+								}
+//							int client_choice_view, client_choice_notification ,client_choice_modify;
+//							client_view(l);
 							// END OF PERSONAL CLIENT PAGE
 //								c++;
 							}
@@ -135,15 +160,14 @@ while(x == 0)
 							{
 							 printf("No record found\n");
 							}
-					}//END OF LOG IN
-					
-					else
-					{
-					printf("Invalid input.Please try again.\n");
-					scanf("%s",client_choice);
-					client_choice_log_in = strcmp(sign_in_choice,"Login");
-					client_choice_register = strcmp(sign_in_choice,"Register");
-					}
+					}//END OF LOG IN RETURN TO CLIENT PAGE				
+//					else
+//					{
+//					printf("Invalid input.Please try again.\n");
+//					scanf("%s",client_choice);
+//					client_choice_log_in = strcmp(sign_in_choice,"Login");
+//					client_choice_register = strcmp(sign_in_choice,"Register");
+//					}
 			}//END OF WHILE C LOOP
 			
 		}// END OF CLIENT PAGE
@@ -156,8 +180,9 @@ return 0;
 
 int reg(client_number)
 {
+//	char *str;
+//	char input[50];
 	int i = client_number;
-	int loop = 0;
 	if(i<5){
 	printf("Please fill the form below\n");
 	client_array[i].client_id = i ;
@@ -167,26 +192,38 @@ int reg(client_number)
     scanf("%s", client_array[i].client_surname);
     printf("Enter your year of birth: \n");
     scanf("%d", &client_array[i].birth_year);
-    printf("Enter your afm: \n");
-    scanf("%d", &client_array[i].afm);
+    printf("Enter your 5 digit afm: \n");
+//    scanf("%s", input);
+//	check_isint(input, i, 5);
+	scanf("%d", &client_array[i].afm);
     printf("Initial Deposit: \n");
     scanf("%f", &client_array[i].initial_deposit);
     client_array[i].after_tax_deposit = client_array[i].initial_deposit - 0.05*client_array[i].initial_deposit;
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
     strftime(client_array[i].date, sizeof(client_array[i].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);
-    printf("%s\n", client_array[i].date);
-   	printf("Current local time and date: %s", client_array[i].date);
 	}else{
 	printf("Maximum number of clients registered!");
 	}
-printf("\n INSIDE REG");
-printf("\nClient id : %d", client_array[i].client_id);
-printf("\nClient id : %d", client_array[i].client_id);
-printf("\n END REG");
-
 return 0;
 }
+
+//int check_isint(char input[],int client_number, int limit)
+//{	
+//	int i = client_number;
+//	int length = strlen(input);
+//    int dig = 0;
+//    printf("\nLimit is : %d", limit);
+//    printf("\nLength is: %d", length);
+//    while(length != 5)
+//	{
+//		printf("\nWrong number of digits.Please enter 5 digit afm\n");
+//		scanf("%s", input);
+//		length = strlen(input);
+//    }
+//
+//	return 0;
+//}
 
 int login(client_username, client_password, client_number, client_verify)
 {
@@ -195,9 +232,9 @@ int login(client_username, client_password, client_number, client_verify)
 	int y = 0;
 	int username = client_username;
 	int password = client_password;
-	int flag = 0;
-	
-		for(x=0; x<5; x++)
+
+
+	for(x=0; x<5; x++)
 		{
 	     if(client_array[x].afm ==  username && client_array[x].birth_year == password  )
 	     {
@@ -206,7 +243,7 @@ int login(client_username, client_password, client_number, client_verify)
 	     }
 		}
 
-return 5;
+return -1;
 }
 
 
@@ -218,6 +255,16 @@ int client_view(int client_number)
 	printf("\nInitial Deposit: %0.1f",client_array[i].initial_deposit);
 	printf("\nAfter Tax Deposit: %0.1f",client_array[i].after_tax_deposit);
 	printf("\nDate of registration:");
-	printf("%s", client_array[i].date);
+	printf("%s\n", client_array[i].date);
 	return 0;
+}
+
+int client_modify(int client_number)
+{
+	
+}
+
+int client_notifications(int client_number)
+{
+	
 }
