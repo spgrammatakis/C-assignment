@@ -96,16 +96,23 @@ while(x == 0)
 					// REGISTER
 						while(client_number < 5)
 						{							
-							reg(client_number);
+
 							printf("Register or Login?\n");
 							scanf("%s",client_choice);
 							client_choice_log_in = strcmp(client_choice,"Login");
+							client_choice_register = strcmp(client_choice,"Register");
+							temp = client_number;
 							if(client_choice_log_in == 0){
 								break;
 							}
-							client_choice_register = strcmp(client_choice,"Register");
-							temp = client_number;
-							client_number++;	
+							if(client_choice_register == 0){
+								reg(client_number);	
+								client_number++;							
+							}
+							if(client_choice_log_in !=0 && client_choice_register != 0){
+								printf("Invalid Input.Try again.\n");
+							}
+								
 						}
 					}// END OF REGISTER
 					else if(client_choice_log_in == 0)
