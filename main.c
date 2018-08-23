@@ -428,23 +428,12 @@ int admin_search()
 	int	i = current_client_number;
 	int x = 0;
 	printf("Enter character to search\n");
-//	for(x=0; x < i; x++)
-//	{	
-//		n = client_array[x].client_surname;
-////		if(strncmp(z, client_array[x].client_surname, 1) == 0)
-//		if(strncmp(z, n, 1) == 0)
-////		for(y = 0; y < client_array[x].surnamem; y++)
-//		{
-//		printf("Found match");
-//		}
-//	const char * haystack;
+
 	char haystack[10];
 	getchar();
 	scanf("%c", &haystack);
 	printf("%c", haystack);
-//	const char * haystack = "the quick brown fox jumped over the lazy dog";
-//    const char * needle = "the";
-//	const char * needle;
+
 	char needle[50];
     char * s;
     const char * start;
@@ -453,13 +442,13 @@ int admin_search()
    for(x = 0; x < i; x++)
    {	
    		s = strncmp (start, client_array[x].client_surname, 1);
-//   		needle = client_array[x].client_surname;
 	    if (s == 0) 
 		{
-//	        printf ("Found %d characters in.\n", s - haystack);
-//	        start = s + strlen (needle);
 			printf("Found match\n");
 			printf("Matched surname is: %s\n", client_array[x].client_surname);
+			printf("Matched name is: %s\n", client_array[x].client_name);
+			printf("Matched birth year is: %d\n", client_array[x].birth_year);
+			printf("Matched afm  is: %d\n", client_array[x].afm);
 	    }
 	}
     return 0;	
