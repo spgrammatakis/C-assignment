@@ -272,7 +272,7 @@ int client_modify(int client_number)
 	printf("Press 4 to modify afm\n");
 	choice = 0;
 	scanf("%d", &choice);
-	printf("choice %d",choice);
+	printf("choice %d\n",choice);
 		if(choice == 1)
 		{
 		printf("Your current Surname is : %s\n", client_array[i].client_surname);
@@ -283,7 +283,7 @@ int client_modify(int client_number)
     	strftime(client_array[i].date, sizeof(client_array[i].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);
 		choice = 0;
 		}
-		if(choice == 2)
+		else if(choice == 2)
 		{
 		printf("Your current Name is : %s\n", client_array[i].client_name);
 		printf("Please enter your desired new name\n");
@@ -291,24 +291,31 @@ int client_modify(int client_number)
 		time_t t = time(NULL);
     	struct tm *tm = localtime(&t);
     	strftime(client_array[i].date, sizeof(client_array[i].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);
+		choice = 0;
 		}
-		if(choice == 3)
+		else if(choice == 3)
 		{
-		printf("Your current Birth year is : %s\n", client_array[i].birth_year);
+		printf("Your current Birth year is : %d\n", client_array[i].birth_year);
 		printf("Please enter your desired new birth year\n");
-		scanf("%d", &client_array[i].client_surname);
+		scanf("%d", &client_array[i].birth_year);
 		time_t t = time(NULL);
    		 struct tm *tm = localtime(&t);
     	strftime(client_array[i].date, sizeof(client_array[i].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);
+		choice = 0;
 		}
-		if(choice == 4)
+		else if(choice == 4)
 		{
-		printf("Your current Afm is : %s\n", client_array[i].afm);
+		printf("Your current Afm is : %d\n", client_array[i].afm);
 		printf("Please enter your desired new afm\n");
-		scanf("%d", &client_array[i].client_surname);
+		scanf("%d", &client_array[i].afm);
 		time_t t = time(NULL);
     	struct tm *tm = localtime(&t);
     	strftime(client_array[i].date, sizeof(client_array[i].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);
+		choice = 0;
+		}
+		else
+		{
+		printf("Invalid Input");		
 		}
 return 0;
 }
