@@ -14,6 +14,12 @@ int client_modify(int client_number);
 int client_notifications(int client_number);
 int client_modify(int client_number);
 //int check_isint(char input[], int client_number, int limit);
+int admin_view(int client_number);
+int admin_search(char search_char[2]);
+int admin_delete(char client_delete_surname[50]);
+int admin_notify(char client_notify_surname[50]);
+int admin_gift(int gift_afm);
+int admin_sort(int client_initial_deposit, int client_birth_year);
 
 
 
@@ -65,8 +71,14 @@ int main() {
 	int temp;
 	int client_choice_log_in, client_choice_register; 
 	int client_choice_view, client_choice_notification ,client_choice_modify;
-	char admin_username[5], admin_password[4];
-	int admin_username_input, admin_password_input;
+	char admin_username[5], admin_password[4], admin_choice[10];
+	int admin_username_input, admin_password_input, admin_choice_view, admin_choice_search;
+	int admin_choice_delete, admin_choice_notify, admin_choice_gift, admin_choice_sort;
+	int admin_choice_exit;
+	char search_char[2];
+	char client_delete_surname[50]; 
+	char client_notify_surname[50];
+	int gift_afm, client_initial_deposit, client_birth_year;
 
 while(x == 0)
 {	
@@ -77,24 +89,58 @@ while(x == 0)
 	scanf("%s",sign_in_choice);
 	admin_result = strcmp(sign_in_choice,"Admin");
 	client_result = strcmp(sign_in_choice,"Client");
-		while(admin_result == 0)
+		if(admin_result == 0)
 		{
-			while(a == 0)
-			{
 				printf("Username:\n");
 				scanf("%s", admin_username);
 				printf("Password: \n");
 				scanf("%s", admin_password);
-				admin_username_input = strcmp(admin_username,"trap");
-				admin_password_input = strcmp(admin_password,"22t");
+				admin_username_input = strcmp(admin_username,"t");
+				admin_password_input = strcmp(admin_password,"t");
 				if(admin_username_input == 0 && admin_password_input == 0)
-				{
-				printf("Welcome to Admin Page\n");
-				a++;
-				}
-			}
-		admin_result++;
-		}
+				{//START OF ADMIN PAGE
+					while(a == 0)
+					{
+						printf("Welcome to Admin Page\n");
+						printf("View\tSearch\tDelete\t");
+						printf("Notify\tGift\tSort\tExit\n");
+						scanf("%s",admin_choice);
+						admin_choice_view 	= strcmp(admin_choice,"View");
+						admin_choice_search = strcmp(admin_choice,"Search");
+						admin_choice_delete = strcmp(admin_choice,"Delete");
+						admin_choice_notify = strcmp(admin_choice,"Notify");
+						admin_choice_gift   = strcmp(admin_choice, "Gift");
+						admin_choice_sort	= strcmp(admin_choice, "Sort");
+						admin_choice_exit	= strcmp(admin_choice, "Exit");
+		
+						if(admin_choice_view == 0)
+						{
+							admin_view(client_number);					
+						}
+						if(admin_choice_search == 0)
+						{
+							admin_search(search_char);
+						}
+						if(admin_choice_delete == 0)
+						{
+							admin_delete(client_delete_surname);
+						}
+						if(admin_choice_notify == 0)
+						{
+							admin_notify(client_notify_surname);					
+						}
+						if(admin_choice_gift == 0)
+						{
+							admin_gift(gift_afm);
+						}
+						if(admin_choice_sort == 0)
+						{
+							admin_sort(client_initial_deposit, client_birth_year);
+						}	
+						
+						}
+					}
+		}//END OF ADMIN PAGE
 		if(client_result == 0)
 		{	
 			while(c == 0)
@@ -239,7 +285,6 @@ int login(client_username, client_password, client_number, client_verify)
 {
 	int z = client_number;
 	int x ;
-	int y = 0;
 	int username = client_username;
 	int password = client_password;
 
@@ -334,4 +379,48 @@ return 0;
 int client_notifications(int client_number)
 {
 	int i = client_number;
+}
+
+int admin_view(int client_number)
+{
+	int	i = client_number;
+	int x ;
+	for(x=0; x<5; x++)
+		{
+			printf("\nName:\t Surname:\t Afm:\t");
+			printf("\n%s \t %s \t %d", client_array[x].client_name,client_array[x].client_surname,client_array[x].afm);
+			printf("\nBirth Year: %0.1f",client_array[x].initial_deposit);
+			printf("\nInitial Deposit: %0.1f",client_array[x].initial_deposit);
+			printf("\nAfter Tax Deposit: %0.1f",client_array[x].after_tax_deposit);
+			printf("\nDate of registration:");
+			printf("%s\n", client_array[x].date);
+//	     if(client_array[x].afm ==  username && client_array[x].birth_year == password  )
+//	     {
+//			printf("Successful Login!\n");
+//			return x;
+//	     }
+		}
+
+	return 0;
+}
+
+int admin_search(char search_char[2])
+{
+	
+}
+int admin_delete(char client_delete_surname[50])
+{
+	
+}
+int admin_notify(char client_notify_surname[50])
+{
+	
+}
+int admin_gift(int gift_afm)
+{
+	
+}
+int admin_sort(int client_initial_deposit, int client_birth_year)
+{
+	
 }
