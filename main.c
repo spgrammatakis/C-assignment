@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include <time.h>
 
+int current_client_number;
 int reg(int client_number);
 int login(int client_username, int client_password, int client_number, int client_verify);
 int client_view(int client_number);
@@ -14,7 +15,7 @@ int client_modify(int client_number);
 int client_notifications(int client_number);
 int client_modify(int client_number);
 //int check_isint(char input[], int client_number, int limit);
-int admin_view(int client_number);
+int admin_view(int current_client_number);
 int admin_search(char search_char[2]);
 int admin_delete(char client_delete_surname[50]);
 int admin_notify(char client_notify_surname[50]);
@@ -69,7 +70,7 @@ int main() {
 	char client_choice[10];
 	int client_username, client_password;
 	int temp;
-	int client_choice_log_in, client_choice_register; 
+	int client_choice_log_in, client_choice_register, client_choice_exit;
 	int client_choice_view, client_choice_notification ,client_choice_modify;
 	char admin_username[5], admin_password[4], admin_choice[10];
 	int admin_username_input, admin_password_input, admin_choice_view, admin_choice_search;
@@ -91,6 +92,7 @@ while(x == 0)
 	client_result = strcmp(sign_in_choice,"Client");
 		if(admin_result == 0)
 		{
+				c = 0;
 				printf("Username:\n");
 				scanf("%s", admin_username);
 				printf("Password: \n");
@@ -115,7 +117,7 @@ while(x == 0)
 		
 						if(admin_choice_view == 0)
 						{
-							admin_view(client_number);					
+							admin_view(current_client_number);					
 						}
 						if(admin_choice_search == 0)
 						{
@@ -143,16 +145,18 @@ while(x == 0)
 		}//END OF ADMIN PAGE
 		if(client_result == 0)
 		{	
+			a = 0;
 			while(c == 0)
 			{
 			//START OF CLIENT PAGE
 //				if(client_number <= 4)
 //				{
 					printf("Welcome to Client Page\n");
-					printf("Register or Log in?\n");
+					printf("Register Log in or Exit?\n");
 					scanf("%s",client_choice);
 					client_choice_log_in = strcmp(client_choice,"Login");
-					client_choice_register = strcmp(client_choice,"Register");					
+					client_choice_register	= strcmp(client_choice,"Register");	
+					client_choice_exit		= strcmp(client_choice, "Exit");				
 					if(client_choice_register == 0)
 					{
 					// REGISTER
@@ -169,6 +173,7 @@ while(x == 0)
 							if(client_choice_register == 0){
 								reg(client_number);	
 								client_number++;
+								current_client_number++;
 								break;						
 							}
 							if(client_choice_log_in !=0 && client_choice_register != 0){
@@ -216,7 +221,10 @@ while(x == 0)
 							{
 							 printf("No record found\n");
 							}
-					}//END OF LOG IN RETURN TO CLIENT PAGE				
+					}//END OF LOG IN RETURN TO CLIENT PAGE	
+					if(client_choice_exit == 0){
+						c++;
+					}			
 //					else
 //					{
 //					printf("Invalid input.Please try again.\n");
@@ -381,11 +389,11 @@ int client_notifications(int client_number)
 	int i = client_number;
 }
 
-int admin_view(int client_number)
+int admin_view(int current_client_number)
 {
-	int	i = client_number;
+	int	i = current_client_number;
 	int x ;
-	for(x=0; x<5; x++)
+	for(x=0; x < i; x++)
 		{
 			printf("\nName:\t Surname:\t Afm:\t");
 			printf("\n%s \t %s \t %d", client_array[x].client_name,client_array[x].client_surname,client_array[x].afm);
