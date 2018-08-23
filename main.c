@@ -401,6 +401,7 @@ int admin_view(int current_client_number)
 {
 	int	i = current_client_number;
 	int x ;
+	int y ;
 	for(x=0; x < i; x++)
 		{
 			printf("\nName:\t Surname:\t Afm:\t");
@@ -410,15 +411,13 @@ int admin_view(int current_client_number)
 			printf("\nAfter Tax Deposit: %0.1f",client_array[x].after_tax_deposit);
 			printf("\nDate of registration:");
 			printf("%s\n", client_array[x].date);
-//	     if(client_array[x].afm ==  username && client_array[x].birth_year == password  )
-//	     {
-//			printf("Successful Login!\n");
-//			return x;
-//	     }
+			if(client_array[x].initial_deposit > 150){
+				y = y + 1;
+			}
 		}
 	
 	printf("\nTotal Number of Clients is : %d", current_client_number);
-	
+	printf("Total Clients with more than 150 euros in deposti : %d", y);
 	return 0;
 }
 
