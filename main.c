@@ -65,6 +65,8 @@ int main() {
 	int temp;
 	int client_choice_log_in, client_choice_register; 
 	int client_choice_view, client_choice_notification ,client_choice_modify;
+	char admin_username[5], admin_password[4];
+	int admin_username_input, admin_password_input;
 
 while(x == 0)
 {	
@@ -79,9 +81,17 @@ while(x == 0)
 		{
 			while(a == 0)
 			{
+				printf("Username:\n");
+				scanf("%s", admin_username);
+				printf("Password: \n");
+				scanf("%s", admin_password);
+				admin_username_input = strcmp(admin_username,"trap");
+				admin_password_input = strcmp(admin_password,"22t");
+				if(admin_username_input == 0 && admin_password_input == 0)
+				{
 				printf("Welcome to Admin Page\n");
-				printf("%d\n", admin_result);
 				a++;
+				}
 			}
 		admin_result++;
 		}
