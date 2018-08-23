@@ -16,7 +16,8 @@ int client_notifications(int client_number);
 int client_modify(int client_number);
 //int check_isint(char input[], int client_number, int limit);
 int admin_view(int current_client_number);
-int admin_search(char search_char[2]);
+//int admin_search(char search_char);
+int admin_search();
 int admin_delete(char client_delete_surname[50]);
 int admin_notify(char client_notify_surname[50]);
 int admin_gift(int gift_afm);
@@ -121,7 +122,11 @@ while(x == 0)
 						}
 						if(admin_choice_search == 0)
 						{
-							admin_search(search_char);
+//							printf("Enter character to search\n");
+//							scanf(" %c", &search_char[0]);
+//							scanf("%s", search_char[0]);
+//							admin_search(search_char[0]);
+							admin_search();
 						}
 						if(admin_choice_delete == 0)
 						{
@@ -141,6 +146,9 @@ while(x == 0)
 						}	
 						
 						}
+						if(admin_choice_exit == 0){
+						a++;
+						}	
 					}
 		}//END OF ADMIN PAGE
 		if(client_result == 0)
@@ -408,14 +416,56 @@ int admin_view(int current_client_number)
 //			return x;
 //	     }
 		}
-
+	
+	printf("\nTotal Number of Clients is : %d", current_client_number);
+	
 	return 0;
 }
 
-int admin_search(char search_char[2])
+int admin_search()
 {
+
+	int	i = current_client_number;
+	int x = 0;
+	printf("Enter character to search\n");
+//	for(x=0; x < i; x++)
+//	{	
+//		n = client_array[x].client_surname;
+////		if(strncmp(z, client_array[x].client_surname, 1) == 0)
+//		if(strncmp(z, n, 1) == 0)
+////		for(y = 0; y < client_array[x].surnamem; y++)
+//		{
+//		printf("Found match");
+//		}
+//	const char * haystack;
+	char haystack[10];
+	getchar();
+	scanf("%c", &haystack);
+	printf("%c", haystack);
+//	const char * haystack = "the quick brown fox jumped over the lazy dog";
+//    const char * needle = "the";
+//	const char * needle;
+	char needle[50];
+    char * s;
+    const char * start;
 	
+    start = haystack;
+   for(x = 0; x < i; x++)
+   {	
+   		s = strncmp (start, client_array[x].client_surname, 1);
+//   		needle = client_array[x].client_surname;
+	    if (s == 0) 
+		{
+//	        printf ("Found %d characters in.\n", s - haystack);
+//	        start = s + strlen (needle);
+			printf("Found match\n");
+			printf("Matched surname is: %s\n", client_array[x].client_surname);
+	    }
+	}
+    return 0;	
 }
+
+
 int admin_delete(char client_delete_surname[50])
 {
 	
