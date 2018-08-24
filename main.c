@@ -517,7 +517,8 @@ int admin_sort()
 	int x ;
 	int y ;
 	int z ;
-	int temp_array[10];
+	int deposit_array[i];
+	int year_array[i];
 	char sort_by_choice[10];
 	int  sort_by_deposit, sort_by_year;
 	printf("Sort by Deposit or Year?");
@@ -529,14 +530,14 @@ int admin_sort()
 	
 		for(x=0; x < i; x++)
 			{
-				temp_array[x] = client_array[x].initial_deposit; 
+				deposit_array[x] = client_array[x].initial_deposit; 
 				
 			}
-		qsort (temp_array, i, sizeof(int), compare );
+		qsort (deposit_array, i, sizeof(int), compare );
 		printf("Descending order according deposit\n");		
 		for(z=0; z < i;z++)
 		{
-			client_array[z].initial_deposit = temp_array[z];
+			client_array[z].initial_deposit = deposit_array[z];
 		}
 		for(y=0; y < i;y++)
 		{
@@ -553,14 +554,14 @@ int admin_sort()
 	
 		for(x=0; x < i; x++)
 			{
-				temp_array[x] = client_array[x].birth_year; 
+				year_array[x] = client_array[x].birth_year; 
 				
 			}
-		qsort (temp_array, i, sizeof(int), compare );
+		qsort (year_array, i, sizeof(int), compare );
 		printf("Descending order according to year\n");		
 		for(z=0; z < i;z++)
 		{
-		    client_array[z].initial_deposit = temp_array[z];
+		    client_array[z].initial_deposit = year_array[z];
 		}
 		for(y=0; y < i;y++)
 		{
