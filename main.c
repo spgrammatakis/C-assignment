@@ -18,8 +18,8 @@ int client_modify(int client_number);
 int admin_view(int current_client_number);
 //int admin_search(char search_char);
 int admin_search();
-int admin_delete(char client_delete_surname[50]);
-int admin_notify(char client_notify_surname[50]);
+int admin_delete();
+int admin_notify();
 int admin_gift(int gift_afm);
 int admin_sort(int client_initial_deposit, int client_birth_year);
 
@@ -32,8 +32,8 @@ struct client
 	char client_surname[50];
 	int	 birth_year;
 	int afm;
-	float  initial_deposit;
-	float  after_tax_deposit;
+	int  initial_deposit;
+	int  after_tax_deposit;
 	char date[150];
 };
 
@@ -102,6 +102,7 @@ while(x == 0)
 				admin_password_input = strcmp(admin_password,"t");
 				if(admin_username_input == 0 && admin_password_input == 0)
 				{//START OF ADMIN PAGE
+					a = 0;
 					while(a == 0)
 					{
 						printf("Welcome to Admin Page\n");
@@ -130,11 +131,11 @@ while(x == 0)
 						}
 						if(admin_choice_delete == 0)
 						{
-							admin_delete(client_delete_surname);
+							admin_delete();
 						}
 						if(admin_choice_notify == 0)
 						{
-							admin_notify(client_notify_surname);					
+							admin_notify();					
 						}
 						if(admin_choice_gift == 0)
 						{
@@ -145,14 +146,17 @@ while(x == 0)
 							admin_sort(client_initial_deposit, client_birth_year);
 						}	
 						
-						}
-						if(admin_choice_exit == 0){
+						if(admin_choice_exit == 0)
+						{
 						a++;
 						}	
+					}
+						
 					}
 		}//END OF ADMIN PAGE
 		if(client_result == 0)
 		{	
+			c = 0;
 			a = 0;
 			while(c == 0)
 			{
@@ -265,11 +269,9 @@ int reg(client_number)
     printf("Enter your year of birth: \n");
     scanf("%d", &client_array[i].birth_year);
     printf("Enter your 5 digit afm: \n");
-//    scanf("%s", input);
-//	check_isint(input, i, 5);
 	scanf("%d", &client_array[i].afm);
     printf("Initial Deposit: \n");
-    scanf("%f", &client_array[i].initial_deposit);
+    scanf("%d", &client_array[i].initial_deposit);
     client_array[i].after_tax_deposit = client_array[i].initial_deposit - 0.05*client_array[i].initial_deposit;
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
@@ -323,8 +325,8 @@ int client_view(int client_number)
 	int	i = client_number;
 	printf("\nName:\t Surname:\t Afm:\t");
 	printf("\n%s \t %s \t %d", client_array[i].client_name,client_array[i].client_surname,client_array[i].afm);
-	printf("\nInitial Deposit: %0.1f",client_array[i].initial_deposit);
-	printf("\nAfter Tax Deposit: %0.1f",client_array[i].after_tax_deposit);
+	printf("\nInitial Deposit: %d",client_array[i].initial_deposit);
+	printf("\nAfter Tax Deposit: %d",client_array[i].after_tax_deposit);
 	printf("\nDate of registration:");
 	printf("%s\n", client_array[i].date);
 	return 0;
@@ -401,23 +403,26 @@ int admin_view(int current_client_number)
 {
 	int	i = current_client_number;
 	int x ;
-	int y ;
+	int y = 0;
+	int z ;
 	for(x=0; x < i; x++)
 		{
 			printf("\nName:\t Surname:\t Afm:\t");
 			printf("\n%s \t %s \t %d", client_array[x].client_name,client_array[x].client_surname,client_array[x].afm);
-			printf("\nBirth Year: %0.1f",client_array[x].initial_deposit);
-			printf("\nInitial Deposit: %0.1f",client_array[x].initial_deposit);
-			printf("\nAfter Tax Deposit: %0.1f",client_array[x].after_tax_deposit);
+			printf("\nBirth Year: %df",client_array[x].initial_deposit);
+			printf("\nInitial Deposit: %d",client_array[x].initial_deposit);
+			printf("\nAfter Tax Deposit: %d",client_array[x].after_tax_deposit);
 			printf("\nDate of registration:");
 			printf("%s\n", client_array[x].date);
-			if(client_array[x].initial_deposit > 150){
+			z = client_array[x].initial_deposit;
+			if(z > 150 )
+			{
 				y = y + 1;
 			}
 		}
 	
-	printf("\nTotal Number of Clients is : %d", current_client_number);
-	printf("Total Clients with more than 150 euros in deposti : %d", y);
+	printf("\nTotal Number of Clients is : %d\n", current_client_number);
+	printf("Total Clients with more than 150 euros in deposit : %d\n", y);
 	return 0;
 }
 
@@ -426,21 +431,23 @@ int admin_search()
 
 	int	i = current_client_number;
 	int x = 0;
+	int y = 0;
 	printf("Enter character to search\n");
 
-	char haystack[10];
+	char haystack[2];
 	getchar();
 	scanf("%c", &haystack);
 	printf("%c", haystack);
 
 	char needle[50];
-    char * s;
+	int s;
     const char * start;
 	
     start = haystack;
    for(x = 0; x < i; x++)
    {	
    		s = strncmp (start, client_array[x].client_surname, 1);
+
 	    if (s == 0) 
 		{
 			printf("Found match\n");
@@ -450,15 +457,17 @@ int admin_search()
 			printf("Matched afm  is: %d\n", client_array[x].afm);
 	    }
 	}
+	
+
     return 0;	
 }
 
 
-int admin_delete(char client_delete_surname[50])
+int admin_delete()
 {
 	
 }
-int admin_notify(char client_notify_surname[50])
+int admin_notify()
 {
 	
 }
