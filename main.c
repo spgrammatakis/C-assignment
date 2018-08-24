@@ -14,15 +14,13 @@ int client_notification(int client_number);
 int client_modify(int client_number);
 int client_notifications(int client_number);
 int client_modify(int client_number);
-//int check_isint(char input[], int client_number, int limit);
 int admin_view(int current_client_number);
-//int admin_search(char search_char);
 int admin_search();
 int admin_delete();
 int admin_notify();
 int admin_gift();
-int admin_sort(int client_initial_deposit, int client_birth_year);
-
+int admin_sort();
+int compare(const void * a, const void * b);
 
 
 struct client
@@ -143,7 +141,7 @@ while(x == 0)
 						}
 						if(admin_choice_sort == 0)
 						{
-							admin_sort(client_initial_deposit, client_birth_year);
+							admin_sort();
 						}	
 						
 						if(admin_choice_exit == 0)
@@ -254,10 +252,8 @@ getch();
 return 0;
 }
 
-int reg(client_number)
+int reg(client_number)// DONE
 {
-//	char *str;
-//	char input[50];
 	int i = client_number;
 	if(i<5){
 	printf("Please fill the form below\n");
@@ -282,24 +278,8 @@ int reg(client_number)
 return 0;
 }
 
-//int check_isint(char input[],int client_number, int limit)
-//{	
-//	int i = client_number;
-//	int length = strlen(input);
-//    int dig = 0;
-//    printf("\nLimit is : %d", limit);
-//    printf("\nLength is: %d", length);
-//    while(length != 5)
-//	{
-//		printf("\nWrong number of digits.Please enter 5 digit afm\n");
-//		scanf("%s", input);
-//		length = strlen(input);
-//    }
-//
-//	return 0;
-//}
 
-int login(client_username, client_password, client_number, client_verify)
+int login(client_username, client_password, client_number, client_verify)// DONE
 {
 	int z = client_number;
 	int x ;
@@ -320,7 +300,7 @@ return -1;
 }
 
 
-int client_view(int client_number)
+int client_view(int client_number)// DONE
 {
 	int	i = client_number;
 	printf("\nName:\t Surname:\t Afm:\t");
@@ -332,7 +312,7 @@ int client_view(int client_number)
 	return 0;
 }
 
-int client_modify(int client_number)
+int client_modify(int client_number)// DONE
 {
 	int i = client_number;
 	int choice;
@@ -399,7 +379,7 @@ int client_notifications(int client_number)
 	int i = client_number;
 }
 
-int admin_view(int current_client_number)
+int admin_view(int current_client_number)// DONE
 {
 	int	i = current_client_number;
 	int x ;
@@ -425,7 +405,7 @@ int admin_view(int current_client_number)
 	return 0;
 }
 
-int admin_search()
+int admin_search()// DONE
 {
 
 	int	i = current_client_number;
@@ -457,7 +437,7 @@ int admin_search()
 }
 
 
-int admin_delete()
+int admin_delete()// DONE
 {
 	int i = current_client_number;
 	int x = 0, loop = 0;
@@ -500,7 +480,7 @@ int admin_notify()
 {
 	
 }
-int admin_gift()
+int admin_gift()// DONE
 {
 //	int i = current_client_number;
 //	int gift;
@@ -531,7 +511,71 @@ int admin_gift()
 	}
 
 }
-int admin_sort(int client_initial_deposit, int client_birth_year)
+int admin_sort()
 {
+	int	i = current_client_number;
+	int x ;
+	int y ;
+	int z ;
+	int temp_array[10];
+	char sort_by_choice[10];
+	int  sort_by_deposit, sort_by_year;
+	printf("Sort by Deposit or Year?");
+	scanf("%s",sort_by_choice);
+	sort_by_deposit = strcmp(sort_by_choice,"Deposit");
+	sort_by_year	= strcmp(sort_by_choice,"Year");
+	if(sort_by_deposit == 0)
+	{
 	
+		for(x=0; x < i; x++)
+			{
+				temp_array[x] = client_array[x].initial_deposit; 
+				
+			}
+		qsort (temp_array, i, sizeof(int), compare );
+		printf("Descending order according deposit\n");		
+		for(z=0; z < i;z++)
+		{
+			client_array[z].initial_deposit = temp_array[z];
+		}
+		for(y=0; y < i;y++)
+		{
+			printf("%s\n", client_array[y].client_surname);	
+			printf("%s\n", client_array[y].client_name);
+			printf("%d\n", client_array[y].birth_year);
+			printf("%d\n", client_array[y].afm);
+			printf("%d\n", client_array[y].initial_deposit);
+			printf("%d\n", client_array[y].after_tax_deposit);
+		}
+	}
+		if(sort_by_year == 0)
+	{
+	
+		for(x=0; x < i; x++)
+			{
+				temp_array[x] = client_array[x].birth_year; 
+				
+			}
+		qsort (temp_array, i, sizeof(int), compare );
+		printf("Descending order according to year\n");		
+		for(z=0; z < i;z++)
+		{
+		    client_array[z].initial_deposit = temp_array[z];
+		}
+		for(y=0; y < i;y++)
+		{
+			printf("%s\n", client_array[y].client_surname);	
+			printf("%s\n", client_array[y].client_name);
+			printf("%d\n", client_array[y].birth_year);
+			printf("%d\n", client_array[y].afm);
+			printf("%d\n", client_array[y].initial_deposit);
+			printf("%d\n", client_array[y].after_tax_deposit);
+		}
+	}
+
+return 0;
+}
+int compare(const void * a, const void * b)
+{
+	return ( *(int*)b - *(int*)a );
 }
