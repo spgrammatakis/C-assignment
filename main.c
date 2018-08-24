@@ -409,7 +409,7 @@ int admin_view(int current_client_number)
 		{
 			printf("\nName:\t Surname:\t Afm:\t");
 			printf("\n%s \t %s \t %d", client_array[x].client_name,client_array[x].client_surname,client_array[x].afm);
-			printf("\nBirth Year: %df",client_array[x].initial_deposit);
+			printf("\nBirth Year: %d",client_array[x].initial_deposit);
 			printf("\nInitial Deposit: %d",client_array[x].initial_deposit);
 			printf("\nAfter Tax Deposit: %d",client_array[x].after_tax_deposit);
 			printf("\nDate of registration:");
@@ -434,19 +434,18 @@ int admin_search()
 	int y = 0;
 	printf("Enter character to search\n");
 
-	char haystack[2];
+	char search_char[2];
 	getchar();
-	scanf("%c", &haystack);
-	printf("%c", haystack);
+	scanf("%c", &search_char);
 
-	char needle[50];
+//	char needle[50];
 	int s;
-    const char * start;
+//    const char * start;
 	
-    start = haystack;
+//    start = haystack;
    for(x = 0; x < i; x++)
    {	
-   		s = strncmp (start, client_array[x].client_surname, 1);
+   		s = strncmp (search_char, client_array[x].client_surname, 1);
 
 	    if (s == 0) 
 		{
@@ -465,7 +464,47 @@ int admin_search()
 
 int admin_delete()
 {
+	int i = current_client_number;
+	int x = 0;
+	char search_surname[50];
+	int s;
+	char delete_choice[4];
+	int delete_input;
+			
+	printf("Enter surnaem to search\n");
+	getchar();
+	scanf("%s", search_surname);
 	
+	
+	for(x = 0; x < i; x++)
+	{
+		s = strcmp(search_surname, client_array[x].client_surname);
+		if (s == 0)
+		{
+			printf("Are you sure you want to delete?\n");
+			getchar();
+			scanf("%s", delete_choice);
+			printf("%s\n", delete_choice);
+			delete_input = strcmp(delete_choice,"Yes");
+				if (delete_input == 0)
+				{
+
+					client_array[x].client_id = -1 ;
+//					client_array[x].client_name[0] = 0;
+					strcpy(client_array[x].client_name, "-1");
+//					client_array[x].client_surname[0] = 0;
+					strcpy(client_array[x].client_surname, "-1");
+					client_array[x].birth_year = -1;
+					client_array[x].afm = -1 ;
+				    client_array[x].initial_deposit = -1 ;
+				    client_array[x].after_tax_deposit = -1 ;
+//				    client_array[x].date[0] == 0;
+				    strcpy(client_array[x].date, "-1");
+				}
+		
+		}
+	}
+return 0;
 }
 int admin_notify()
 {
