@@ -20,7 +20,6 @@ int admin_delete();
 int admin_notify();
 int admin_gift();
 int admin_sort();
-int sort();
 int compare(const void * a, const void * b);
 
 
@@ -33,7 +32,6 @@ struct client
 	int afm;
 	int  initial_deposit;
 	int  after_tax_deposit;
-	int order;
 	char date[150];
 }client[5], temp;
 
@@ -143,8 +141,7 @@ while(x == 0)
 						}
 						if(admin_choice_sort == 0)
 						{
-//							admin_sort();
-							sort();
+							admin_sort();							
 						}	
 						
 						if(admin_choice_exit == 0)
@@ -515,14 +512,11 @@ int admin_gift()// DONE
 	}
 
 }
-int admin_sort()
+
+int admin_sort()// DONE
 {
-	int	i = current_client_number;
-	int x ;
-	int y ;
-	int z ;
-	int deposit_array[i+1];
-	int year_array[i+1];
+	int i, j, n;
+	n = current_client_number;
 	char sort_by_choice[10];
 	int  sort_by_deposit, sort_by_year;
 	printf("Sort by Deposit or Year?");
@@ -531,81 +525,35 @@ int admin_sort()
 	sort_by_year	= strcmp(sort_by_choice,"Year");
 	if(sort_by_deposit == 0)
 	{
+	printf("Descending order according deposit\n");
+	for (i = 1; i < n; i++)
+      for (j = 0; j < n - i; j++) 
+	  {
+         if (client[j].initial_deposit < client[j+1].initial_deposit)
+		 {
+            temp = client[j];
+            client[j] = client[j+1];
+            client[j+1] = temp;
+
+         }
+      }
 	
-		for(x=0; x < i; x++)
-		{
-			deposit_array[x] = client[x].initial_deposit; 
-					
-		}
-		qsort (deposit_array, i, sizeof(int), compare );
-		printf("Descending order according deposit\n");		
-		for(z=0; z < i;z++)
-		{
-			printf("%d", deposit_array[z]);	
-			client[z].initial_deposit = deposit_array[z];
-//			client[z].order = z;
-		}
-		for(y=0; y < i; y++)
-		{
-//			printf("%s\n", client[y].client_surname);	
-//			printf("%s\n", client[y].client_name);
-			printf("Birth year of  %s : %d\n",  client[y].client_name,client[y].birth_year);
-			printf("Order of %s : %d\n", client[y].client_name,client[y].order);
-//			printf("%d\n", client[y].afm);
-			printf("Deposit of %s :%d\n",  client[y].client_name,client[y].initial_deposit);
-//			printf("%d\n", client[y].after_tax_deposit);
-		}
-	}
-		if(sort_by_year == 0)
-	{
+	   for (i = 0; i < n; i++)
+	   	{
+      		printf("Surname : %s\n", client[y].client_surname);	
+			printf("Name :%s\n", client[y].client_name);
+			printf("Birth year : %d\n", client[y].birth_year);
+			printf("Afm :%d\n", client[y].afm);
+			printf("Deposit : %d\n", client[y].initial_deposit);
+			printf("After tax deposit: %d\n", client[y].after_tax_deposit);
+   		}
+
+   }	
 	
-		for(x=0; x < i; x++)
-		{
-			year_array[x] = client[x].birth_year; 
-						
-		}
-		qsort (year_array, i, sizeof(int), compare );
-		printf("Descending order according to year\n");		
-		for(z=0; z < i;z++)
-		{	
-			printf("%d", year_array[z]);
-		    client[z].birth_year = year_array[z];
-//		    client[z].order = z;
-
-		}
-		for(y=0; y < i;y++)
-		{
-//			printf("%s\n", client[y].client_surname);	
-//			printf("%s\n", client[y].client_name);
-			printf("Birth year of %s : %d\n", client[y].client_name,client[y].birth_year);
-			printf("Order of %s : %d\n", client[y].client_name,client[y].order);
-//			printf("%d\n", client[y].afm);
-			printf("Deposit of %s : %d\n",  client[y].client_name,client[y].initial_deposit);
-//			printf("%d\n", client[y].after_tax_deposit);
-		}
-	}
-
-return 0;
-}
-int compare(const void * a, const void * b)
-{
-	return ( *(int*)b - *(int*)a );
-}
-
-int sort()
-{
-	int i, j, n;
-	n = current_client_number;
-	int deposit_array[n];
-	char sort_by_choice[10];
-	int  sort_by_deposit, sort_by_year;
-	printf("Sort by Deposit or Year?");
-	scanf("%s",sort_by_choice);
-	sort_by_deposit = strcmp(sort_by_choice,"Deposit");
-	sort_by_year	= strcmp(sort_by_choice,"Year");
+	
 	if(sort_by_year == 0)
 	{
-	
+	printf("Descending order according year\n");
 	for (i = 1; i < n; i++)
       for (j = 0; j < n - i; j++) 
 	  {
@@ -620,7 +568,12 @@ int sort()
 	
 	   for (i = 0; i < n; i++)
 	   	{
-      	printf("\n%s\t%s\t%d",client[i].client_name,client[i].client_surname,client[i].birth_year);
+      		printf("Surname : %s\n", client[y].client_surname);	
+			printf("Name :%s\n", client[y].client_name);
+			printf("Birth year : %d\n", client[y].birth_year);
+			printf("Afm :%d\n", client[y].afm);
+			printf("Deposit : %d\n", client[y].initial_deposit);
+			printf("After tax deposit: %d\n", client[y].after_tax_deposit);
    		}
 
    }
