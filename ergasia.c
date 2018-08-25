@@ -7,8 +7,8 @@
 #include <time.h>
 
 int current_client_number;
-int reg(int client_number);
-int login(int client_username, int client_password, int client_number, int client_verify);
+int client_reg(int client_number);
+int client_login(int client_username, int client_password, int client_number, int client_verify);
 int client_view(int client_number);
 int client_notification(int client_number);
 int client_modify(int client_number);
@@ -20,7 +20,7 @@ int admin_delete();
 int admin_notify();
 int admin_gift();
 int admin_sort();
-int compare(const void * a, const void * b);
+
 
 
 struct client
@@ -171,7 +171,7 @@ while(x == 0)
 								break;
 							}
 							if(client_choice_register == 0){
-								reg(client_number);	
+								client_reg(client_number);	
 								client_number++;
 								current_client_number++;
 								break;						
@@ -190,7 +190,7 @@ while(x == 0)
 						scanf("%d", &client_username);
 						printf("Enter your year of birth:\n");
 						scanf("%d", &client_password);
-						l = login(client_username, client_password, client_number, client_verify);
+						l = client_login(client_username, client_password, client_number, client_verify);
 							if(l != -1)
 							{					
 							// PERSONAL CLIENT PAGE
@@ -233,7 +233,7 @@ getch();
 return 0;
 }
 
-int reg(client_number)// DONE
+int client_reg(client_number)// DONE
 {
 	int i = client_number;
 	if(i<5){
@@ -260,7 +260,7 @@ return 0;
 }
 
 
-int login(client_username, client_password, client_number, client_verify)// DONE
+int client_login(client_username, client_password, client_number, client_verify)// DONE
 {
 	int z = client_number;
 	int x ;
