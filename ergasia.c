@@ -258,7 +258,6 @@ int reg(client_number)// DONE
 	if(i<5){
 	printf("Please fill the form below\n");
 	client[i].client_id = i ;
-	client[i].order = 0;
     printf("Enter your name: \n");
     scanf("%s", client[i].client_name);
     printf("Enter your surname: \n");
@@ -540,12 +539,12 @@ int admin_sort()// DONE
 	
 	   for (i = 0; i < n; i++)
 	   	{
-      		printf("Surname : %s\n", client[y].client_surname);	
-			printf("Name :%s\n", client[y].client_name);
-			printf("Birth year : %d\n", client[y].birth_year);
-			printf("Afm :%d\n", client[y].afm);
-			printf("Deposit : %d\n", client[y].initial_deposit);
-			printf("After tax deposit: %d\n", client[y].after_tax_deposit);
+			printf("Surname          : %s\n", client[i].client_surname);	
+			printf("Name             :%s\n", client[i].client_name);
+			printf("Birth year       : %d\n", client[i].birth_year);
+			printf("Afm              :%d\n", client[i].afm);
+			printf("Deposit          : %d\n", client[i].initial_deposit);
+			printf("After tax deposit: %d\n", client[i].after_tax_deposit);
    		}
 
    }	
@@ -568,12 +567,12 @@ int admin_sort()// DONE
 	
 	   for (i = 0; i < n; i++)
 	   	{
-      		printf("Surname : %s\n", client[y].client_surname);	
-			printf("Name :%s\n", client[y].client_name);
-			printf("Birth year : %d\n", client[y].birth_year);
-			printf("Afm :%d\n", client[y].afm);
-			printf("Deposit : %d\n", client[y].initial_deposit);
-			printf("After tax deposit: %d\n", client[y].after_tax_deposit);
+      		printf("Surname          : %s\n", client[i].client_surname);	
+			printf("Name             :%s\n", client[i].client_name);
+			printf("Birth year       : %d\n", client[i].birth_year);
+			printf("Afm              :%d\n", client[i].afm);
+			printf("Deposit          : %d\n", client[i].initial_deposit);
+			printf("After tax deposit: %d\n", client[i].after_tax_deposit);
    		}
 
    }
