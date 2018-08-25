@@ -7,6 +7,7 @@
 #include <time.h>
 
 int current_client_number;
+int current_alerts_number;
 int client_reg(int client_number);
 int client_login(int client_username, int client_password, int client_number, int client_verify);
 int client_view(int client_number);
@@ -20,6 +21,14 @@ int admin_delete();
 int admin_notify();
 int admin_gift();
 int admin_sort();
+
+
+
+struct alerts
+{
+	char notification[5];
+	char surname[50];	
+}client_notify[10];
 
 
 
@@ -38,7 +47,6 @@ struct client
 struct  client 	client[5];
 
 int main() {
-
 
 
 	int i = 0;
@@ -129,7 +137,8 @@ while(x == 0)
 						}
 						if(admin_choice_notify == 0)
 						{
-							admin_notify();					
+							admin_notify();		
+							current_alerts_number++;			
 						}
 						if(admin_choice_gift == 0)
 						{
@@ -459,15 +468,56 @@ return 0;
 }
 int admin_notify()
 {
+	int i = current_client_number;
+	int y = current_alerts_number;
+	int x, s, o, p;
+	char message[5];
+	char option_ok[5] = "OK";
+	char option_prob[5] = "PROB";
+	char search_surname[50];
+	printf("Enter surname to notify:\n");
+	scanf("%s", search_surname);
+	
+	
+			for(x = 0; x < i; x++)
+			{						
+					s = strcmp(search_surname, client[x].client_surname);
+					 
+					if (s == 0)
+					{
+						//case1
+						printf("Select notify messsage:\n");
+						scanf("%s", message);
+						o = strcmp(message,option_ok);
+						
+						if(o == 0)
+						{
+						strcpy(client_notify[x].surname, search_surname);
+						strcpy(client_notify[x].notification,option_ok);	
+						
+						}
+						p = strcmp(message,option_prob);
+						if( p == 0)
+						{
+						strcpy(client_notify[x].surname, search_surname);
+						strcpy(client_notify[x].notification,option_prob);
+							
+						}				
+					}
+	
+			}
+			printf("Current alerts : %d\n", y);
+			for(x = 0; x < y; x++)
+			{
+			printf("client_notify notification is : %s \n", client_notify[x].notification);
+			printf("client_notify surname is : %s \n", client_notify[x].surname);	
+			}
+	
 	
 }
 int admin_gift()// DONE
 {
-//	int i = current_client_number;
-//	int gift;
-//	printf("Enter a number from 0 to 9");
-//	scanf("%*[^0-9] %d", &x);
-//	printf("%d", gift);
+
 	int	i = current_client_number;
 	int x = 0;
 	int y = 0;
