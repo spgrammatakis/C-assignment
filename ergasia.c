@@ -121,10 +121,6 @@ while(x == 0)
 						}
 						if(admin_choice_search == 0)
 						{
-//							printf("Enter character to search\n");
-//							scanf(" %c", &search_char[0]);
-//							scanf("%s", search_char[0]);
-//							admin_search(search_char[0]);
 							admin_search();
 						}
 						if(admin_choice_delete == 0)
@@ -159,8 +155,6 @@ while(x == 0)
 			while(c == 0)
 			{
 			//START OF CLIENT PAGE
-//				if(client_number <= 4)
-//				{
 					printf("Welcome to Client Page\n");
 					printf("Register Log in or Exit?\n");
 					scanf("%s",client_choice);
@@ -173,10 +167,6 @@ while(x == 0)
 						while(client_number < 5)
 						{							
 
-//							printf("Register or Login?\n");
-//							scanf("%s",client_choice);
-//							client_choice_log_in = strcmp(client_choice,"Login");
-//							client_choice_register = strcmp(client_choice,"Register");
 							if(client_choice_log_in == 0){
 								break;
 							}
@@ -222,10 +212,7 @@ while(x == 0)
 								{
 									client_modify(l);
 								}
-//							int client_choice_view, client_choice_notification ,client_choice_modify;
-//							client_view(l);
-							// END OF PERSONAL CLIENT PAGE
-//								c++;
+
 							}
 							else
 							{
@@ -235,17 +222,11 @@ while(x == 0)
 					if(client_choice_exit == 0){
 						c++;
 					}			
-//					else
-//					{
-//					printf("Invalid input.Please try again.\n");
-//					scanf("%s",client_choice);
-//					client_choice_log_in = strcmp(sign_in_choice,"Login");
-//					client_choice_register = strcmp(sign_in_choice,"Register");
-//					}
+
 			}//END OF WHILE C LOOP
 			
 		}// END OF CLIENT PAGE
-//x++;
+
 }//END OF WHILE X LOOP
 
 getch();
