@@ -28,6 +28,9 @@ struct alerts
 {
 	char notification[5];
 	char surname[50];	
+	int alert_id;
+	int client_id;
+	char date[150];
 }client_notify[10];
 
 
@@ -99,6 +102,7 @@ while(x == 0)
 	client_result = strcmp(sign_in_choice,"Client");
 		if(admin_result == 0)
 		{
+
 				c = 0;
 				printf("Username:\n");
 				scanf("%s", admin_username);
@@ -137,8 +141,9 @@ while(x == 0)
 						}
 						if(admin_choice_notify == 0)
 						{
+							current_alerts_number++;
 							admin_notify();		
-							current_alerts_number++;			
+										
 						}
 						if(admin_choice_gift == 0)
 						{
@@ -364,9 +369,22 @@ return 0;
 }
 
 
-int client_notifications(int client_number)
+int client_notifications(int client_number)// DONE
 {
 	int i = client_number;
+	int y = current_alerts_number;
+	int x, s;
+
+			for(x = 0; x < y; x++)
+			{
+				s = strcmp(client_notify[x].surname, client[i].client_surname);
+//				if(s == 0 && client_notify[x].alert_id != 0)
+				if(s == 0)
+			{
+			printf("Your notifications are : %s \n", client_notify[x].notification);	
+			printf("client_notify date is : %s \n", client_notify[x].date);
+			}
+			}
 }
 
 int admin_view(int current_client_number)// DONE
@@ -435,8 +453,7 @@ int admin_delete()// DONE
 	int s;
 	char delete_choice[4];
 	int delete_input;
-	printf("Enter surname to search\n");
-		
+	printf("Enter surname to search\n");	
 	scanf("%s", search_surname);
 		
 			for(x = 0; x < i; x++)
@@ -466,7 +483,7 @@ int admin_delete()// DONE
 			}
 return 0;
 }
-int admin_notify()
+int admin_notify()// DONE
 {
 	int i = current_client_number;
 	int y = current_alerts_number;
@@ -475,9 +492,10 @@ int admin_notify()
 	char option_ok[5] = "OK";
 	char option_prob[5] = "PROB";
 	char search_surname[50];
+	time_t t = time(NULL);
+    struct tm *tm = localtime(&t);
 	printf("Enter surname to notify:\n");
 	scanf("%s", search_surname);
-	
 	
 			for(x = 0; x < i; x++)
 			{						
@@ -485,35 +503,43 @@ int admin_notify()
 					 
 					if (s == 0)
 					{
-						//case1
 						printf("Select notify messsage:\n");
 						scanf("%s", message);
-						o = strcmp(message,option_ok);
-						
+						o = strcmp(message,option_ok);			
 						if(o == 0)
 						{
 						strcpy(client_notify[x].surname, search_surname);
-						strcpy(client_notify[x].notification,option_ok);	
-						
+						strcpy(client_notify[x].notification,option_ok);						
+						client_notify[x].client_id = client[x].client_id;	
+						client_notify[x].alert_id = y;	
+						strftime(client_notify[x].date, sizeof(client_notify[x].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);						
 						}
 						p = strcmp(message,option_prob);
 						if( p == 0)
 						{
 						strcpy(client_notify[x].surname, search_surname);
 						strcpy(client_notify[x].notification,option_prob);
-							
-						}				
+						client_notify[x].client_id = client[x].client_id;
+						client_notify[x].alert_id = y;	
+						strftime(client_notify[x].date, sizeof(client_notify[x].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);
+						}	
+					
 					}
 	
 			}
-			printf("Current alerts : %d\n", y);
 			for(x = 0; x < y; x++)
+			{
+				s = strcmp(client_notify[x].surname, client[x].client_surname);
+				if(s == 0 && client_notify[x].alert_id != 0)
 			{
 			printf("client_notify notification is : %s \n", client_notify[x].notification);
 			printf("client_notify surname is : %s \n", client_notify[x].surname);	
+			printf("client_notify id is : %d \n", client_notify[x].client_id);
+			printf("client_notify alert is : %d \n", client_notify[x].alert_id);
+			printf("client_notify date is : %s \n", client_notify[x].date);
 			}
-	
-	
+			}
+	return 0;
 }
 int admin_gift()// DONE
 {
@@ -608,3 +634,4 @@ int admin_sort()// DONE
 
    }
 }
+
