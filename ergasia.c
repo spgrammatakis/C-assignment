@@ -58,6 +58,9 @@ int main() {
 	int quarter_align, third_align, center_align, len;
 	char sign_in_choice[6];
 	char start_screen_title[] = "Start Screen";
+	HANDLE Output = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD Coordinates = {120, 100};
+    SetConsoleScreenBufferSize(Output, Coordinates);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	int ret;
 	ret = GetConsoleScreenBufferInfo(GetStdHandle( STD_OUTPUT_HANDLE ),&csbi);
