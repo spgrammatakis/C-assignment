@@ -108,8 +108,8 @@ while(x == 0)
 				scanf("%s", admin_username);
 				printf("Password: \n");
 				scanf("%s", admin_password);
-				admin_username_input = strcmp(admin_username,"t");
-				admin_password_input = strcmp(admin_password,"t");
+				admin_username_input = strcmp(admin_username,"trap");
+				admin_password_input = strcmp(admin_password,"22t");
 				if(admin_username_input == 0 && admin_password_input == 0)
 				{//START OF ADMIN PAGE
 					a = 0;
@@ -261,6 +261,12 @@ int client_reg(client_number)// DONE
     scanf("%*[^0-9] %d", &client[i].birth_year);
     printf("Enter your 5 digit afm: \n");
 	scanf("%*[^0-9] %d", &client[i].afm);
+	while(client[i].afm <= 9999 || client[i].afm >= 100000 )
+	{
+		printf("Invalid afm.Please renter 5 digit afm: \n");
+		scanf("%*[^0-9] %d", &client[i].afm);
+		
+	}
     printf("Initial Deposit: \n");
     scanf("%*[^0-9] %d", &client[i].initial_deposit);
     client[i].after_tax_deposit = client[i].initial_deposit - 0.05*client[i].initial_deposit;
@@ -634,4 +640,3 @@ int admin_sort()// DONE
 
    }
 }
-
