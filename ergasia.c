@@ -74,7 +74,7 @@ int main() {
 	char choice[] = "Admin Client";
 	len = strlen(choice);
 	center_align = ((len+cols)/2);
-	// ALIGN TEXT IN TERMINAL	
+	// END ALIGN TEXT IN TERMINAL	
 	int admin_result, client_result, number_of_clients;
 	int x = 0;
 	int c = 0; 
@@ -390,7 +390,6 @@ int client_notifications(int client_number)// DONE
 			for(x = 0; x < y; x++)
 			{
 				s = strcmp(client_notify[x].surname, client[i].client_surname);
-//				if(s == 0 && client_notify[x].alert_id != 0)
 				if(s == 0)
 			{
 			printf("Your notifications are : %s \n", client_notify[x].notification);	
