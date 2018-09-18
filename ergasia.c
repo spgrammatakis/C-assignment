@@ -9,7 +9,7 @@
 int current_client_number;
 int current_alerts_number;
 int client_reg(int client_number);
-int client_login(int client_username, int client_password, int client_number, int client_verify);
+int client_login(int client_username, int client_password, int client_number);
 int client_view(int client_number);
 int client_notification(int client_number);
 int client_modify(int client_number);
@@ -53,11 +53,11 @@ int main() {
 
 
 	int i = 0;
-	int client_verify = 0 ;
 	int client_number = 0 ;
 	int quarter_align, third_align, center_align, len;
 	char sign_in_choice[6];
 	char start_screen_title[] = "Start Screen";
+	// ALIGN TEXT IN TERMINAL
 	HANDLE Output = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD Coordinates = {120, 100};
     SetConsoleScreenBufferSize(Output, Coordinates);
@@ -75,6 +75,7 @@ int main() {
 	char choice[] = "Admin Client";
 	len = strlen(choice);
 	center_align = ((len+cols)/2);
+	// ALIGN TEXT IN TERMINAL	
 	int admin_result, client_result, number_of_clients;
 	int x = 0;
 	int c = 0; 
@@ -207,7 +208,7 @@ while(x == 0)
 						scanf("%d", &client_username);
 						printf("Enter your year of birth:\n");
 						scanf("%d", &client_password);
-						l = client_login(client_username, client_password, client_number, client_verify);
+						l = client_login(client_username, client_password, client_number);
 							if(l != -1)
 							{					
 							// PERSONAL CLIENT PAGE
@@ -283,7 +284,7 @@ return 0;
 }
 
 
-int client_login(client_username, client_password, client_number, client_verify)// DONE
+int client_login(client_username, client_password, client_number)// DONE
 {
 	int z = client_number;
 	int x ;
@@ -457,20 +458,24 @@ int admin_search()// DONE
 int admin_delete()// DONE
 {
 	int i = current_client_number;
-	int x = 0, loop = 0;
+	int x = 0;
+	int y = 0;
 	char search_surname[50];
 	int s;
 	char delete_choice[4];
 	int delete_input;
-	printf("Enter surname to search\n");	
-	scanf("%s", search_surname);
-		
+	while(y != 1)
+	{
+		printf("Enter surname to search\n");	
+		scanf("%s", search_surname);
+			
 			for(x = 0; x < i; x++)
 			{						
 					s = strcmp(search_surname, client[x].client_surname);
 					if (s == 0)
 					{
 						printf("Are you sure you want to delete?\n");
+						printf("Yes or No?\n")
 						scanf("%s", delete_choice);
 						printf("%s\n", delete_choice);
 						delete_input = strcmp(delete_choice,"Yes");
@@ -485,13 +490,16 @@ int admin_delete()// DONE
 							    client[x].initial_deposit = -1 ;
 							    client[x].after_tax_deposit = -1 ;
 							    strcpy(client[x].date, "-1");
+							    y = 1;
 							}
 					
 					}
 	
 			}
+	}
 return 0;
 }
+
 int admin_notify()// DONE
 {
 	int i = current_client_number;
@@ -543,9 +551,6 @@ int admin_notify()// DONE
 			{
 			printf("client_notify notification is : %s \n", client_notify[x].notification);
 			printf("client_notify surname is : %s \n", client_notify[x].surname);	
-			printf("client_notify id is : %d \n", client_notify[x].client_id);
-			printf("client_notify alert is : %d \n", client_notify[x].alert_id);
-			printf("client_notify date is : %s \n", client_notify[x].date);
 			}
 			}
 	return 0;
