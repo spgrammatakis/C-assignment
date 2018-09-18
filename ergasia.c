@@ -12,7 +12,6 @@ int client_reg(int client_number);
 int client_login(int client_username, int client_password, int client_number);
 int client_view(int client_number);
 int client_notification(int client_number);
-int client_modify(int client_number);
 int client_notifications(int client_number);
 int client_modify(int client_number);
 int admin_view(int current_client_number);
@@ -308,8 +307,7 @@ return -1;
 int client_view(int client_number)// DONE
 {
 	int	i = client_number;
-	printf("\nName:\t Surname:\t Afm:\t");
-	printf("\n%s \t %s \t %d", client[i].client_name,client[i].client_surname,client[i].afm);
+	printf("\nName: %s\t Surname: %s\t Afm: %d\t Birth Year: %d \t", client[i].client_name,client[i].client_surname,client[i].afm,client[i].birth_year);
 	printf("\nInitial Deposit: %d",client[i].initial_deposit);
 	printf("\nAfter Tax Deposit: %d",client[i].after_tax_deposit);
 	printf("\nDate of registration:");
@@ -321,8 +319,7 @@ int client_modify(int client_number)// DONE
 {
 	int i = client_number;
 	int choice;
-	printf("\nName:\t Surname:\t Afm:\t Birth Year:\t");
-	printf("\n%s \t %s \t %d \t %d \t\n", client[i].client_name,client[i].client_surname,client[i].afm,client[i].birth_year);
+	printf("\nName: %s\t Surname: %s\t Afm: %d\t Birth Year: %d \t", client[i].client_name,client[i].client_surname,client[i].afm,client[i].birth_year);
 	printf("Select which field to modify\n");
 	printf("Press 1 to modify Surname\n");
 	printf("Press 2 to modify Name\n");
@@ -357,7 +354,7 @@ int client_modify(int client_number)// DONE
 		printf("Please enter your desired new birth year\n");
 		scanf("%d", &client[i].birth_year);
 		time_t t = time(NULL);
-   		 struct tm *tm = localtime(&t);
+   		struct tm *tm = localtime(&t);
     	strftime(client[i].date, sizeof(client[i].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);
 		choice = 0;
 		}
@@ -366,6 +363,11 @@ int client_modify(int client_number)// DONE
 		printf("Your current Afm is : %d\n", client[i].afm);
 		printf("Please enter your desired new afm\n");
 		scanf("%d", &client[i].afm);
+		while(client[i].afm <= 9999 || client[i].afm >= 100000 )
+	    {
+	    	printf("Invalid afm.Please renter 5 digit afm: \n");
+	    	scanf("%*[^0-9] %d", &client[i].afm);
+	    }
 		time_t t = time(NULL);
     	struct tm *tm = localtime(&t);
     	strftime(client[i].date, sizeof(client[i].date), "%A %d %B %Y %H:%M:%S %p %Z", tm);
@@ -475,7 +477,7 @@ int admin_delete()// DONE
 					if (s == 0)
 					{
 						printf("Are you sure you want to delete?\n");
-						printf("Yes or No?\n")
+						printf("Yes or No?\n");
 						scanf("%s", delete_choice);
 						printf("%s\n", delete_choice);
 						delete_input = strcmp(delete_choice,"Yes");
